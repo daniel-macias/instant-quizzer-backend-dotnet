@@ -1,9 +1,22 @@
+using InstantQuizzerBackend.Data;
+using InstantQuizzerBackend.Services;
+using InstantQuizzerBackend.Models;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<MongoDbContext>(sp => new MongoDbContext(builder.Configuration));
+builder.Services.AddScoped<QuizService>();
+
+// Register the Swagger generator, defining one or more Swagger documents
+builder.Services.AddEndpointsApiExplorer(); // Enables the API explorer which Swagger uses
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Quiz API", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -11,32 +24,46 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quiz API V1"));
 }
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// Define your endpoints here
 
-app.MapGet("/weatherforecast", () =>
+// Create a new Quiz
+app.MapPost("/api/quizzes", async (Quiz quiz, QuizService quizService) => 
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    await quizService.CreateQuizAsync(quiz);
+    return Results.Created($"/api/quizzes/{quiz.Id}", quiz);
+});
+
+// Get all Quizzes
+app.MapGet("/api/quizzes", async (QuizService quizService) => 
+{
+    var quizzes = await quizService.GetAllQuizzesAsync();
+    return Results.Ok(quizzes);
+});
+
+// Get a Quiz by ID
+app.MapGet("/api/quizzes/{id}", async (string id, QuizService quizService) => 
+{
+    var quiz = await quizService.GetQuizByIdAsync(id);
+    return quiz != null ? Results.Ok(quiz) : Results.NotFound();
+});
+
+// Update a Quiz
+app.MapPut("/api/quizzes/{id}", async (string id, Quiz quiz, QuizService quizService) => 
+{
+    var existingQuiz = await quizService.GetQuizByIdAsync(id);
+    if (existingQuiz == null) return Results.NotFound();
+    await quizService.UpdateQuizAsync(id, quiz);
+    return Results.NoContent();
+});
+
+// Delete a Quiz
+app.MapDelete("/api/quizzes/{id}", async (string id, QuizService quizService) => 
+{
+    await quizService.DeleteQuizAsync(id);
+    return Results.Ok($"Deleted quiz {id}");
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

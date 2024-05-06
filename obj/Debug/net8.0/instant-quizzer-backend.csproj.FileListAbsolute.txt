@@ -32,3 +32,16 @@ C:\Dev\instant-quizzer-backend\obj\Debug\net8.0\refint\instant-quizzer-backend.d
 C:\Dev\instant-quizzer-backend\obj\Debug\net8.0\instant-quizzer-backend.pdb
 C:\Dev\instant-quizzer-backend\obj\Debug\net8.0\instant-quizzer-backend.genruntimeconfig.cache
 C:\Dev\instant-quizzer-backend\obj\Debug\net8.0\ref\instant-quizzer-backend.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\AWSSDK.Core.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\AWSSDK.SecurityToken.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\DnsClient.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\MongoDB.Driver.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\MongoDB.Driver.Core.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\MongoDB.Libmongocrypt.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\SharpCompress.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\Snappier.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\ZstdSharp.dll
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\runtimes\linux\native\libmongocrypt.so
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Dev\instant-quizzer-backend\bin\Debug\net8.0\runtimes\win\native\mongocrypt.dll
