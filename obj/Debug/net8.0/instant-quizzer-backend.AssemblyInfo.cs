@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("instant-quizzer-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+322fa7c4b4f92bc6f96767a53935fa701bbc02a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d30584d90ee317a97e5ae8db4ae311e0801764fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("instant-quizzer-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("instant-quizzer-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

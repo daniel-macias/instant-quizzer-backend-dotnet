@@ -18,6 +18,16 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Quiz API", Version = "v1" });
 });
 
+// Add CORS service
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy",
+        builder => builder.WithOrigins("http://localhost:3000") // Allow specific origin
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials()); // This is necessary only if your front end needs to send credentials
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +36,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quiz API V1"));
 }
+
+app.UseRouting();
+
+// Enable CORS using the named policy
+app.UseCors("MyCorsPolicy");
+
 
 // Define your endpoints here
 
