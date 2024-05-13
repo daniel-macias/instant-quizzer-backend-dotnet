@@ -7,7 +7,7 @@ namespace InstantQuizzerBackend.Models
         [BsonElement("personName")]
         public string PersonName { get; set; }
 
-        [BsonElement("percentageEarned")]
-        public int PercentageEarned { get; set; }
+        [BsonElement("responses")]
+        public List<bool> Responses { get; set; }
     }
 }

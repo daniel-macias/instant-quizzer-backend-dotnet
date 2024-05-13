@@ -2,6 +2,7 @@ using InstantQuizzerBackend.Data;
 using InstantQuizzerBackend.Services;
 using InstantQuizzerBackend.Models;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
@@ -81,5 +82,25 @@ app.MapDelete("/api/quizzes/{id}", async (string id, QuizService quizService) =>
     await quizService.DeleteQuizAsync(id);
     return Results.Ok($"Deleted quiz {id}");
 });
+
+app.MapPost("/api/quizzes/{id}/results", async (string id, Result newResult, MongoDbContext dbContext) => 
+{
+    var quiz = await dbContext.Quizzes.Find(q => q.Id == id).FirstOrDefaultAsync();
+    if (quiz == null)
+    {
+        return Results.NotFound("Quiz not found");
+    }
+
+    // Check if the length of responses matches the number of questions in the quiz
+    if (newResult.Responses.Count != quiz.Questions.Count)
+    {
+        return Results.BadRequest(new { message = "The number of responses does not match the number of questions in the quiz." });
+    }
+
+    quiz.Results.Add(newResult);
+    await dbContext.Quizzes.ReplaceOneAsync(q => q.Id == id, quiz);
+    return Results.Ok(new { message = "Results added successfully", quiz });
+});
+
 
 app.Run();
