@@ -1,0 +1,17 @@
+[build]
+  # Build command that publishes your .NET application to a 'publish' directory
+  command = "dotnet publish -c Release -o publish --no-restore"
+  # Directory that Netlify should deploy
+  publish = "publish"
+
+[context.production.environment]
+  # Set environment variables for the production environment
+  ASPNETCORE_ENVIRONMENT = "Production"
+
+[context.deploy-preview.environment]
+  # Environment variables for deploy previews
+  ASPNETCORE_ENVIRONMENT = "Development"
+
+[context.branch-deploy.environment]
+  # Environment variables for branch deploys
+  ASPNETCORE_ENVIRONMENT = "Staging"

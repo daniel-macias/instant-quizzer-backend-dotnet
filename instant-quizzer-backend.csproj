@@ -5,6 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>instant_quizzer_backend</RootNamespace>
+    <OutputType>Exe</OutputType>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed> <!-- Optional, trims unused libraries to reduce size -->
+    <PublishReadyToRun>true</PublishReadyToRun> <!-- Optional, improves startup time -->
   </PropertyGroup>
 
   <ItemGroup>
