@@ -53,11 +53,19 @@ app.MapPost("/api/quizzes", async (Quiz quiz, QuizService quizService) =>
     return Results.Created($"/api/quizzes/{quiz.Id}", quiz);
 });
 
-// Get all Quizzes
-app.MapGet("/api/quizzes", async (QuizService quizService) => 
+app.MapGet("/api/quizzes", async (QuizService quizService, ILogger<Program> logger) =>
 {
-    var quizzes = await quizService.GetAllQuizzesAsync();
-    return Results.Ok(quizzes);
+    try
+    {
+        logger.LogInformation("Getting all quizzes");
+        var quizzes = await quizService.GetAllQuizzesAsync();
+        return Results.Ok(quizzes);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Error getting all quizzes");
+        return Results.BadRequest("Internal Server Error");
+    }
 });
 
 // Get a Quiz by ID
