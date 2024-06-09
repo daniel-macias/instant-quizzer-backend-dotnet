@@ -44,7 +44,6 @@ app.UseRouting();
 app.UseCors("MyCorsPolicy");
 
 
-// Define your endpoints here
 
 // Create a new Quiz
 app.MapPost("/api/quizzes", async (Quiz quiz, QuizService quizService) => 
