@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyCorsPolicy",
-        builder => builder.WithOrigins("http://localhost:3000") // Allow specific origin
+        builder => builder.WithOrigins("https://instant-quizzer-frontend.vercel.app") // Allow specific origin
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials()); // This is necessary only if your front end needs to send credentials
