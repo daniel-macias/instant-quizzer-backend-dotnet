@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>instant_quizzer_backend</RootNamespace>
     <OutputType>Exe</OutputType>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed> <!-- Optional, trims unused libraries to reduce size -->
     <PublishReadyToRun>true</PublishReadyToRun> <!-- Optional, improves startup time -->
